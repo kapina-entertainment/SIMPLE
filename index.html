@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPLE | Motion Design Studio</title>
+    <meta name="description"
+        content="SIMPLE is a premier motion design studio based in Korea, specializing in trendy 2D and 3D videos for global clients.">
+    <meta name="color-scheme" content="light">
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=12">
+</head>
+
+<body>
+    <div id="cursor"></div>
+    <div id="cursor-blur"></div>
+
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <img src="logo.png" alt="SIMPLE logo" class="logo-img">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#work">Work</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="menu-btn">
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero" class="hero">
+            <!-- Spline Wrapper for Interactivity and Masking -->
+            <div class="spline-wrapper">
+                <script type="module"
+                    src="https://unpkg.com/@splinetool/viewer@1.12.67/build/spline-viewer.js"></script>
+                <spline-viewer id="spline-bg" url="https://prod.spline.design/ah8SpEhdeR3NTwTW/scene.splinecode"
+                    events-target="global" logo="hidden"></spline-viewer>
+
+                <!-- Mask to hide Spline watermark -->
+                <div class="spline-mask"></div>
+            </div>
+
+            <script>
+                const viewer = document.getElementById('spline-bg');
+
+                // 2. Responsive scaling for mobile screens (Fixed Aspect Ratio Scaling)
+                function adjustSplineScale() {
+                    const width = window.innerWidth;
+                    const height = window.innerHeight;
+
+                    // We treat the Spline scene as a 1920x1080 canvas.
+                    // We scale this canvas to fit/cover the screen appropriately.
+                    const targetWidth = 1920;
+                    const targetHeight = 1080;
+
+                    // Calculate scale to "cover" or "contain" depending on needs.
+                    // To prevent cropping of the central element in portrait, we scale by width.
+                    // For landscape, we scale by height.
+                    const scaleX = width / targetWidth;
+                    const scaleY = height / targetHeight;
+
+                    // Use the larger scale to simulate background-size: cover, 
+                    // BUT if it's portrait (very tall), the sides of the 3D scene get cropped.
+                    // To keep the 'SIMPLE' 3D text fully visible, we must use Math.min for portrait width fitting.
+                    // Ensure the scale always covers the hero section height
+                    let scale = Math.max(scaleX, scaleY);
+
+                    if (height > width) {
+                        // Portrait mode (mobile/tablet vertical):
+                        // Scale specifically to fit the width so the design (like the text) doesn't get cut off on the sides.
+                        // We use exactly scaleX for horizontal filling.
+                        scale = scaleX;
+                    }
+
+                    const viewer = document.querySelector('.spline-wrapper');
+                    viewer.style.width = targetWidth + 'px';
+                    viewer.style.height = targetHeight + 'px';
+                    viewer.style.transform = `translate(-50%, -50%) scale(${scale})`;
+
+                    const hero = document.querySelector('.hero');
+                    if (width < 768) {
+                        hero.style.height = '85vh';
+                        hero.style.minHeight = '85vh';
+                    } else {
+                        hero.style.height = '100vh';
+                        hero.style.minHeight = '100vh';
+                    }
+                }
+
+                window.addEventListener('resize', adjustSplineScale);
+                adjustSplineScale(); // run once on load
+
+                // Forward mouse movements through the overlay to the iframe
+                // Since the overlay catches pointer events (to fix scroll and custom cursor).
+                const overlay = document.querySelector('.spline-overlay-fix');
+                const iframe = document.getElementById('spline-bg');
+
+                if (overlay && iframe) {
+                    overlay.addEventListener('mousemove', (e) => {
+                        // We cannot directly trigger a mousemove inside a cross-origin iframe.
+                        // However, Spline iframes often listen to the parent window's pointer events 
+                        // if the embed allows it, or we simply set pointer-events: none on the overlay 
+                        // ONLY when moving, then back to auto when scrolling. 
+
+                        // A cleaner CSS-only trick for this specific case: 
+                        // Let's actually give the overlay pointer-events: none, BUT 
+                        // let the hero section itself catch the custom cursor. 
+                        // Let's test if the custom cursor naturally works over the iframe if we just
+                        // ensure the iframe doesn't swallow ALL events.
+                    });
+                }
+            </script>
+
+            <div class="hero-content">
+                <h2 class="hero-subtitle">Seoul, Korea</h2>
+                <h1 class="hero-title">
+                    <span class="word">Trendy</span>
+                    <span class="word highlight">Motion</span>
+                    <span class="word">Design.</span>
+                </h1>
+                <p class="hero-description">
+                    We create stunning 2D & 3D visual experiences<br>
+                    that captivate your audience.
+                </p>
+                <div class="hero-cta">
+                    <a href="#work" class="btn primary-btn">View Our Work</a>
+                    <a href="#contact" class="btn secondary-btn">Let's Talk</a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="mouse"></div>
+                <span>Scroll</span>
+            </div>
+        </section>
+
+        <section id="work" class="work">
+            <h2 class="section-title">Works.</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/01.G-idle.jpg" data-video="assets/01.G-idle.webm"
+                            alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>01.G-idle</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/11.SNS_Motion.jpg"
+                            data-video="assets/11.SNS_Motion.webm" alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>11.SNS_Motion</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/03.toasty.jpg" data-video="assets/03.toasty.webm"
+                            alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>03.toasty</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/04.Dedication_2D_motion.jpg"
+                            data-video="assets/04.Dedication_2D_motion.webm" alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>04.Dedication_2D_motion</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/05.Coway_cold.jpg"
+                            data-video="assets/05.Coway_cold.webm" alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>05.코웨이_LCD 모션_냉수-260107-01</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/06.CRUNTIN.jpg" data-video="assets/06.CRUNTIN.webm"
+                            alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>06.크런틴_1080x1920-260118-05</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/07.Bingre.jpg" data-video="assets/07.Bingre.webm"
+                            alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>07.빙그레 이지드링크-20220729-01</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/08.Yeoljeong.jpg"
+                            data-video="assets/08.Yeoljeong.webm" alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>08.열정국밥-260106-01</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/09.ENHYPEN_Sunghoon_crossvision.jpg"
+                            data-video="assets/09.ENHYPEN_Sunghoon_crossvision.webm" alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>09.ENHYPEN_Sunghoon_crossvision</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/10.Criosonic.jpg"
+                            data-video="assets/10.Criosonic.webm" alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>10.크라이오소닉_최종본-20250211-01</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/02.B&O Beoplay HX Promotion.jpg"
+                            data-video="assets/02.B&O Beoplay HX Promotion.webm" alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>02.B&O Beoplay HX Promotion</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/12.catch_care-251209-01.jpg"
+                            data-video="assets/12.catch_care-251209-01.webm" alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>12.catch_care-251209-01</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/13.Kallos Scene 8_Promotion.jpg"
+                            data-video="assets/13.Kallos Scene 8_Promotion.webm" alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>13.Kallos Scene 8_Promotion</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/14.R&D.jpg" data-video="assets/14.R&D.webm"
+                            alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>14.민간 R&D 협의체</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/15.ORO.jpg" data-video="assets/15.ORO.webm"
+                            alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>15.오알오_최종본-20250530-01</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/16.Coway_warm.jpg"
+                            data-video="assets/16.Coway_warm.webm" alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>16.코웨이_LCD 모션_온수-260107-01</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="item-visuals">
+                        <img class="portfolio-poster" src="assets/17.Daegu_Startup.jpg"
+                            data-video="assets/17.Daegu_Startup.webm" alt="Portfolio Thumbnail">
+                    </div>
+                    <div class="item-info">
+                        <h3>17.제 9회 대구 스타트업 행사 오프닝-251203-02</h3>
+                        <p>TBD</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="about-container">
+                <h2 class="section-title">We Are SIMPLE.</h2>
+                <p class="about-text">Based in the heart of Korea, our studio focuses on creating high-fidelity, trendy,
+                    and mesmerizing motion design. Whether it's complex 3D simulations or crisp 2D vector animations, we
+                    transform ideas into visual masterpieces.</p>
+                <div class="stats">
+                    <div class="stat">
+                        <h3>50+</h3>
+                        <p>Happy Clients</p>
+                    </div>
+                    <div class="stat">
+                        <h3>100+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="stat">
+                        <h3>2D/3D</h3>
+                        <p>Multi-disciplinary</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Infinite Marquee Separator -->
+        <section class="marquee-section">
+            <div class="marquee-inner">
+                <div class="marquee-content">
+                    <span>Motion Design</span>
+                    <span class="dot">•</span>
+                    <span>3D Simulation</span>
+                    <span class="dot">•</span>
+                    <span>2D Animation</span>
+                    <span class="dot">•</span>
+                    <span>VFX & Compositing</span>
+                    <span class="dot">•</span>
+                </div>
+                <div class="marquee-content" aria-hidden="true">
+                    <span>Motion Design</span>
+                    <span class="dot">•</span>
+                    <span>3D Simulation</span>
+                    <span class="dot">•</span>
+                    <span>2D Animation</span>
+                    <span class="dot">•</span>
+                    <span>VFX & Compositing</span>
+                    <span class="dot">•</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="contact-box">
+                <h2>Ready to start your next project?</h2>
+                <p>Let's create something extraordinary together.</p>
+                <div class="contact-links">
+                    <!-- Removed magnetic classes from buttons and links on the page -->
+                    <a href="mailto:jsj322@naver.com" class="btn primary-btn large-btn">Email Us</a>
+                    <a href="https://open.kakao.com/me/SIMPLE2000" target="_blank"
+                        class="btn secondary-btn large-btn">KakaoTalk</a>
+                    <a href="tel:+82-10-8602-3855" class="btn secondary-btn large-btn">Call Us</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <a href="#" class="footer-logo">
+                <img src="logo.png" alt="SIMPLE logo" class="footer-logo-img">
+            </a>
+            <div class="footer-socials">
+                <a href="https://www.instagram.com/kapina_official/" target="_blank">Instagram</a>
+                <a href="https://www.youtube.com/@SIMPLE_Portfolio" target="_blank">YouTube</a>
+                <a href="https://open.kakao.com/me/SIMPLE2000" target="_blank">KakaoTalk</a>
+            </div>
+        </div>
+        <p class="copyright">&copy; <span id="year"></span> SIMPLE Motion Design. All rights reserved.</p>
+    </footer>
+
+    <!-- Portfolio Modal -->
+    <div id="portfolio-modal" class="modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button class="modal-close">
+                <span></span>
+                <span></span>
+            </button>
+            <div class="modal-media" id="modal-media-container">
+                <!-- Video or Iframe injected here via JS -->
+            </div>
+            <div class="modal-info">
+                <h2 id="modal-title">Project Title</h2>
+                <p id="modal-role" class="modal-role">Role</p>
+                <p id="modal-desc" class="modal-desc">Project description goes here.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Smooth Scrolling Library (Lenis) -->
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script src="script.js?v=6"></script>
+</body>
+
+</html>
