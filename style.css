@@ -1075,10 +1075,6 @@ footer {
         /* Optimize for dynamic scaling */
     }
 
-    .app-circle:active {
-        transform: scale(0.9) !important;
-    }
-
     .portfolio-grid {
         display: none;
         /* Redundant due to cloud */
