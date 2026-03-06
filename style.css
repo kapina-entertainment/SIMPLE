@@ -851,10 +851,12 @@ section {
 }
 
 .kakao-custom-icon {
-    width: 1.6rem;
-    /* Exact same physical size as FontAwesome 1.6rem */
-    height: 1.6rem;
+    width: 1.8rem;
+    /* Slightly increased to match optical weight of FontAwesome icons */
+    height: 1.8rem;
     object-fit: contain;
+    transform: translateY(3px);
+    /* Optical alignment downward due to speech bubble tail */
 }
 
 /* Specific override to prevent email icon from being white due to .primary-btn class in HTML */
