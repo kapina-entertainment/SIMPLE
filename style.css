@@ -177,7 +177,31 @@ body {
     justify-self: end;
     /* Aligns the hamburger icon to the right side of the grid on mobile */
     display: none;
-    /* Default hidden on desktop, revealed in media queries */
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    z-index: 1001;
+    /* Above mobile nav */
+}
+
+.menu-btn span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: var(--text-primary);
+    transition: all 0.3s ease;
+    transform-origin: left center;
+}
+
+/* Active Hambuger Animation */
+.menu-btn.active span:first-child {
+    transform: rotate(45deg);
+}
+
+.menu-btn.active span:last-child {
+    transform: rotate(-45deg);
 }
 
 .nav-links a {
@@ -932,6 +956,49 @@ footer {
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(10px);
         border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar::after {
+        display: none;
+    }
+
+    .menu-btn {
+        display: flex;
+    }
+
+    /* Mobile Full Screen Nav Overlay */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.98);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        z-index: 1000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+
+    .nav-links.active {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .nav-links li {
+        width: auto;
+    }
+
+    .nav-links a {
+        font-size: 2rem;
+        color: var(--text-primary) !important;
     }
 
     .hero {
@@ -1006,7 +1073,6 @@ footer {
         height: 100vh;
         cursor: grab;
         user-select: none;
-        touch-action: none;
         z-index: 5;
         overflow: hidden;
     }
@@ -1062,8 +1128,8 @@ footer {
         border-radius: 50%;
         background-size: cover;
         background-position: center;
-        border: 4px solid #ffffff;
-        /* Thicker white border for premium feel */
+        border: 2px solid #ffffff;
+        /* Thinner white border for premium feel */
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
         /* Softer shadows for white theme */
         transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -1124,7 +1190,9 @@ footer {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 10000;
+    z-index: 999999;
+    isolation: isolate;
+    /* Create new stacking context to stop filter bleed-through */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1146,6 +1214,8 @@ footer {
     height: 100%;
     background: rgba(5, 5, 5, 0.85);
     backdrop-filter: blur(15px);
+    z-index: -1;
+    /* Keep strictly behind content */
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="%23ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>') 16 16, pointer;
 }
 
@@ -1178,6 +1248,10 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 .modal-media video,
@@ -1195,6 +1269,9 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    position: relative;
+    z-index: 2;
+    background: #ffffff;
 }
 
 #modal-title {
@@ -1249,12 +1326,51 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .modal-content {
+        flex-direction: column;
+        /* Video on top, text below */
+        max-height: 90vh;
+    }
+
+    .modal-media {
+        max-height: 40vh;
+        /* Restrict video height on mobile */
+    }
+
     .modal-info {
         padding: 1.5rem;
+        overflow-y: auto;
+        /* Allow text to scroll within info container */
     }
 
     #modal-title {
         font-size: 1.8rem;
+    }
+
+    /* About & Contact Layout Optimization */
+    .about-text {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat h3 {
+        font-size: 2.5rem;
+    }
+
+    .stat p {
+        font-size: 0.8rem;
+    }
+
+    .contact-box {
+        padding: 4rem 1.5rem;
+    }
+
+    .contact-links {
+        gap: 1rem;
+    }
+
+    .large-btn {
+        width: 100%;
     }
 }
 
