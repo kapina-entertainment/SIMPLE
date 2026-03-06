@@ -163,6 +163,8 @@ body {
     display: flex;
     list-style: none;
     gap: 2.5rem;
+    align-items: center;
+    /* Ensure vertical alignment */
     justify-self: center;
     /* Perfectly centers the links in the grid */
 }
@@ -175,15 +177,21 @@ body {
 
 .menu-btn {
     justify-self: end;
+    align-self: center;
+    /* Vertically align the hamburger icon */
     /* Aligns the hamburger icon to the right side of the grid on mobile */
     display: none;
     cursor: pointer;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
+    /* Better spacing for 2 bars */
     width: 30px;
-    height: 20px;
+    height: 24px;
     z-index: 1001;
     /* Above mobile nav */
+    border: none;
+    background: transparent;
+    padding: 0;
 }
 
 .menu-btn span {
@@ -810,21 +818,54 @@ section {
     padding: 1rem 2.5rem;
 }
 
-/* Circular Icon-only contact buttons (reduced 10% from 80px) */
+/* Circular Icon-only contact buttons */
 .contact-icon-btn {
-    width: 72px;
-    height: 72px;
+    width: 60px;
+    /* Uniform width */
+    height: 60px;
+    /* Uniform height */
     padding: 0;
     /* Remove default button padding */
     border-radius: 50%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    background: var(--bg-secondary);
+    /* Uniform background */
+    color: var(--text-primary);
+    /* Force Black color instead of white from primary-btn */
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.contact-icon-btn:hover {
+    background: var(--accent-color);
+    color: #ffffff;
+    border-color: var(--accent-color);
 }
 
 .contact-icon-btn i {
-    font-size: 2rem;
-    /* Scaled down 10% */
+    font-size: 1.6rem;
+    /* Uniform icon size */
+    color: inherit;
+}
+
+.kakao-custom-icon {
+    width: 1.6rem;
+    /* Exact same physical size as FontAwesome 1.6rem */
+    height: 1.6rem;
+    object-fit: contain;
+}
+
+/* Specific override to prevent email icon from being white due to .primary-btn class in HTML */
+a.contact-icon-btn.primary-btn {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+a.contact-icon-btn.primary-btn:hover {
+    background: var(--text-primary);
+    color: #ffffff;
 }
 
 /* Footer */
@@ -859,15 +900,22 @@ footer {
 .footer-socials {
     display: flex;
     gap: 1.5rem;
+    align-items: center;
 }
 
 .footer-socials a {
-    color: var(--text-secondary);
+    color: var(--text-primary);
+    /* Changed to black (text-primary) to match contact icons */
     text-decoration: none;
     transition: all 0.3s ease;
     cursor: none;
-    font-size: 1.8rem;
-    /* Make the footer icons large and readable */
+    font-size: 1.6rem;
+    /* Match the 1.6rem size of contact icons */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
 }
 
 .footer-socials a:hover {
