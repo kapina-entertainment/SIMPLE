@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPLE</title>
+    <meta name="description" content="Motion Design Studio">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="SIMPLE">
+    <meta property="og:description" content="Motion Design Studio">
+    <meta property="og:image" content="OG-image.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SIMPLE">
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SIMPLE">
+    <meta name="twitter:description" content="Motion Design Studio">
+    <meta name="twitter:image" content="OG-image.png">
+    
+    <!-- Favicon & App Icons -->
+    <link rel="icon" href="Favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="Touch-icon.png">
+    <meta name="color-scheme" content="light">
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css?v=12">
+</head>
+
+<body>
+    <div id="cursor"></div>
+    <div id="cursor-blur"></div>
+
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <img src="black_logo.png" alt="SIMPLE logo" class="logo-img">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#work">Work</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="menu-btn">
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero" class="hero">
+            <!-- Spline Wrapper for Interactivity and Masking -->
+            <div class="spline-wrapper">
+                <script type="module"
+                    src="https://unpkg.com/@splinetool/viewer@1.12.67/build/spline-viewer.js"></script>
+                <spline-viewer id="spline-bg" url="https://prod.spline.design/ah8SpEhdeR3NTwTW/scene.splinecode"
+                    events-target="global" logo="hidden"></spline-viewer>
+
+                <!-- Gradient Overlays for smooth blending into the hero background -->
+                <div class="spline-gradient-top"></div>
+                <div class="spline-gradient-bottom"></div>
+
+                <!-- Mask to hide Spline watermark -->
+                <div class="spline-mask"></div>
+            </div>
+
+            <script>
+                const viewer = document.getElementById('spline-bg');
+
+                // 2. Responsive scaling for mobile screens (Fixed Aspect Ratio Scaling)
+                function adjustSplineScale() {
+                    const width = window.innerWidth;
+                    const height = window.innerHeight;
+
+                    // We treat the Spline scene as a 1920x1080 canvas.
+                    // We scale this canvas to fit/cover the screen appropriately.
+                    const targetWidth = 1920;
+                    const targetHeight = 1080;
+
+                    // Calculate scale to "cover" or "contain" depending on needs.
+                    // To prevent cropping of the central element in portrait, we scale by width.
+                    // For landscape, we scale by height.
+                    const scaleX = width / targetWidth;
+                    const scaleY = height / targetHeight;
+
+                    // Use the larger scale to simulate background-size: cover, 
+                    // BUT if it's portrait (very tall), the sides of the 3D scene get cropped.
+                    // To keep the 'SIMPLE' 3D text fully visible, we must use Math.min for portrait width fitting.
+                    // Ensure the scale always covers the hero section height
+                    let scale = Math.max(scaleX, scaleY);
+
+                    if (height > width) {
+                        // Portrait mode (mobile/tablet vertical):
+                        // Scale specifically to fit the width so the design (like the text) doesn't get cut off on the sides.
+                        // We use exactly scaleX for horizontal filling.
+                        scale = scaleX;
+                    }
+
+                    const viewer = document.querySelector('.spline-wrapper');
+                    viewer.style.width = targetWidth + 'px';
+                    viewer.style.height = targetHeight + 'px';
+                    viewer.style.transform = `translate(-50%, -50%) scale(${scale})`;
+
+                    const hero = document.querySelector('.hero');
+                    if (width < 768) {
+                        hero.style.height = '85vh';
+                        hero.style.minHeight = '85vh';
+                    } else {
+                        hero.style.height = '100vh';
+                        hero.style.minHeight = '100vh';
+                    }
+                }
+
+                window.addEventListener('resize', adjustSplineScale);
+                adjustSplineScale(); // run once on load
+
+                // Forward mouse movements through the overlay to the iframe
+                // Since the overlay catches pointer events (to fix scroll and custom cursor).
+                const overlay = document.querySelector('.spline-overlay-fix');
+                const iframe = document.getElementById('spline-bg');
+
+                if (overlay && iframe) {
+                    overlay.addEventListener('mousemove', (e) => {
+                        // We cannot directly trigger a mousemove inside a cross-origin iframe.
+                        // However, Spline iframes often listen to the parent window's pointer events 
+                        // if the embed allows it, or we simply set pointer-events: none on the overlay 
+                        // ONLY when moving, then back to auto when scrolling. 
+
+                        // A cleaner CSS-only trick for this specific case: 
+                        // Let's actually give the overlay pointer-events: none, BUT 
+                        // let the hero section itself catch the custom cursor. 
+                        // Let's test if the custom cursor naturally works over the iframe if we just
+                        // ensure the iframe doesn't swallow ALL events.
+                    });
+                }
+            </script>
+
+            <div class="hero-content">
+                <h2 class="hero-subtitle">Seoul, Korea</h2>
+                <h1 class="hero-title">
+                    <span class="word">Trendy</span>
+                    <span class="word highlight">Motion</span>
+                    <span class="word">Design.</span>
+                </h1>
+                <p class="hero-description">
+                    We create stunning 2D & 3D visual experiences<br>
+                    that captivate your audience.
+                </p>
+                <div class="hero-cta">
+                    <a href="#work" class="btn primary-btn">View Our Work</a>
+                    <a href="#contact" class="btn secondary-btn">Let's Talk</a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="mouse"></div>
+                <span>Scroll</span>
+            </div>
+        </section>
+
+        <section id="work" class="work">
+            <h2 class="section-title">Works.</h2>
+            <div class="portfolio-grid" id="portfolio-grid-container">
+                <!-- Portfolio items will be dynamically injected here by script.js -->
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="about-container">
+                <h2 class="section-title">We Are SIMPLE.</h2>
+                <p class="about-text">Based in the heart of Korea, our studio focuses on creating high-fidelity, trendy,
+                    and mesmerizing motion design. Whether it's complex 3D simulations or crisp 2D vector animations, we
+                    transform ideas into visual masterpieces.</p>
+                <div class="stats">
+                    <div class="stat">
+                        <h3>50+</h3>
+                        <p>Happy Clients</p>
+                    </div>
+                    <div class="stat">
+                        <h3>100+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="stat">
+                        <h3>2D/3D</h3>
+                        <p>Multi-disciplinary</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Infinite Marquee Separator -->
+        <section class="marquee-section">
+            <div class="marquee-inner">
+                <div class="marquee-content">
+                    <span>Motion Design</span>
+                    <span class="dot">•</span>
+                    <span>3D Simulation</span>
+                    <span class="dot">•</span>
+                    <span>2D Animation</span>
+                    <span class="dot">•</span>
+                    <span>VFX & Compositing</span>
+                    <span class="dot">•</span>
+                </div>
+                <div class="marquee-content" aria-hidden="true">
+                    <span>Motion Design</span>
+                    <span class="dot">•</span>
+                    <span>3D Simulation</span>
+                    <span class="dot">•</span>
+                    <span>2D Animation</span>
+                    <span class="dot">•</span>
+                    <span>VFX & Compositing</span>
+                    <span class="dot">•</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="contact-box">
+                <h2>Ready to start your next project?</h2>
+                <p>Let's create something extraordinary together.</p>
+                <div class="contact-links">
+                    <a href="mailto:jsj322@naver.com" class="btn primary-btn large-btn contact-icon-btn" aria-label="Email Us">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+                    <a href="https://open.kakao.com/me/SIMPLE2000" target="_blank" class="btn secondary-btn large-btn contact-icon-btn" aria-label="KakaoTalk">
+                        <img src="KAKAOTALK.png" alt="KakaoTalk" class="kakao-custom-icon">
+                    </a>
+                    <a href="tel:+82-10-8602-3855" class="btn secondary-btn large-btn contact-icon-btn" aria-label="Call Us">
+                        <i class="fa-solid fa-phone"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <a href="#" class="footer-logo">
+                <img src="logo.png" alt="SIMPLE logo" class="footer-logo-img">
+            </a>
+            <div class="footer-socials">
+                <a href="https://www.instagram.com/kapina_official/" target="_blank" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.youtube.com/@SIMPLE_Portfolio" target="_blank" aria-label="YouTube">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+                <a href="https://open.kakao.com/me/SIMPLE2000" target="_blank" aria-label="KakaoTalk">
+                    <img src="KAKAOTALK.png" alt="KakaoTalk" class="kakao-custom-icon">
+                </a>
+            </div>
+        </div>
+        <p class="copyright">&copy; <span id="year"></span> SIMPLE Motion Design. All rights reserved.</p>
+    </footer>
+
+    <!-- Portfolio Modal -->
+    <div id="portfolio-modal" class="modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button class="modal-close">
+                <span></span>
+                <span></span>
+            </button>
+            <div class="modal-media" id="modal-media-container">
+                <!-- Video or Iframe injected here via JS -->
+            </div>
+            <div class="modal-info">
+                <h2 id="modal-title">Project Title</h2>
+                <p id="modal-desc" class="modal-desc">Project description goes here.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Quick Contact Widget -->
+    <div class="floating-widget">
+        <a href="mailto:jsj322@naver.com" class="floating-btn" aria-label="Email Us">
+            <i class="fa-solid fa-envelope"></i>
+        </a>
+        <a href="https://open.kakao.com/me/SIMPLE2000" target="_blank" class="floating-btn" aria-label="KakaoTalk">
+            <img src="KAKAOTALK.png" alt="KakaoTalk" class="kakao-custom-icon">
+        </a>
+        <a href="tel:+82-10-8602-3855" class="floating-btn" aria-label="Call Us">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+    </div>
+
+    <!-- Smooth Scrolling Library (Lenis) -->
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <!-- Portfolio Data Single Source of Truth -->
+    <script src="assets/portfolio.js"></script>
+    <script src="script.js?v=6"></script>
+</body>
+
+</html>
