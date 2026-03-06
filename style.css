@@ -906,7 +906,9 @@ footer {
 /* Responsive */
 @media (max-width: 768px) {
 
-    /* Hide Spline and standard Hero content for Apple Watch style */
+    /* Hide Spline, standard Hero content, and custom cursor for Apple Watch style */
+    #cursor,
+    #cursor-blur,
     .spline-wrapper,
     .spline-mask,
     .spline-gradient-top,
