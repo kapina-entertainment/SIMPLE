@@ -2,6 +2,12 @@ let localData = [];
 
 // Initialize data
 function init() {
+    // Load GitHub Token
+    const savedToken = localStorage.getItem('gh_token');
+    if (savedToken) {
+        document.getElementById('gh-token').value = savedToken;
+    }
+
     // Check local storage first
     const savedData = localStorage.getItem('simple_portfolio_data');
     if (savedData) {
@@ -219,9 +225,94 @@ function addNewItem() {
     window.scrollTo(0, 0);
 }
 
-function saveData() {
+function saveToken(token) {
+    localStorage.setItem('gh_token', token);
+    showToast("GitHub Token Saved");
+}
+
+async function saveData() {
+    // 1. Save to LocalStorage (Immediate local preview)
     localStorage.setItem('simple_portfolio_data', JSON.stringify(localData));
-    showToast();
+    showToast("Saved to Browser");
+
+    // 2. Sync to GitHub if token exists
+    const token = document.getElementById('gh-token').value;
+    if (!token) {
+        alert("GitHub Token이 입력되지 않아 로컬 브라우저에만 저장되었습니다.\n웹사이트에도 반영하려면 상단에 깃허브 토큰을 입력해 주세요.");
+        return;
+    }
+
+    const saveBtn = document.querySelector('button[onclick="saveData()"]');
+    const originalText = saveBtn.innerHTML;
+    saveBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Syncing to GitHub...';
+    saveBtn.disabled = true;
+
+    try {
+        const repo = "kapina-entertainment/SIMPLE";
+        const path = "assets/portfolio.js";
+        const branch = "main";
+
+        // A. Get current file data (to get SHA)
+        const getUrl = `https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`;
+        const getRes = await fetch(getUrl, {
+            headers: { 'Authorization': `token ${token}` }
+        });
+
+        let sha = "";
+        if (getRes.ok) {
+            const fileData = await getRes.json();
+            sha = fileData.sha;
+        } else if (getRes.status !== 404) {
+            throw new Error(`Failed to fetch file SHA: ${getRes.statusText}`);
+        }
+
+        // B. Prepare new content
+        const content = `const PORTFOLIO_DATA = ${JSON.stringify(localData, null, 4)};`;
+        const encodedContent = btoa(unescape(encodeURIComponent(content)));
+
+        // C. Update file via API
+        const putUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+        const putRes = await fetch(putUrl, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: "Update portfolio data via Admin Dashboard",
+                content: encodedContent,
+                sha: sha,
+                branch: branch
+            })
+        });
+
+        if (putRes.ok) {
+            showToast("Successfully Synced to GitHub!");
+            alert("깃허브에 성공적으로 저장되었습니다!\n잠시 후(약 1-2분) 웹사이트에 자동 반영됩니다.");
+        } else {
+            const errorData = await putRes.json();
+            throw new Error(errorData.message || "GitHub API Error");
+        }
+    } catch (err) {
+        console.error(err);
+        alert(`GitHub 동기화 실패: ${err.message}`);
+    } finally {
+        saveBtn.innerHTML = originalText;
+        saveBtn.disabled = false;
+    }
+}
+
+function exportForGitHub() {
+    const dataString = JSON.stringify(localData, null, 4);
+    const finalCode = `const PORTFOLIO_DATA = ${dataString};`;
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(finalCode).then(() => {
+        alert("업데이트된 데이터 코드가 클립보드에 복사되었습니다!\n\n'assets/portfolio.js' 파일을 열고 내용을 모두 지운 뒤, 붙여넣기(Ctrl+V)하고 저장해 주세요.\n그 다음 다시 깃허브에 올리면 웹사이트에도 반영됩니다.");
+    }).catch(err => {
+        console.log(finalCode);
+        alert("클립보드 복사에 실패했습니다. 개발자 도구(F12) 콘솔창에 출력된 코드를 복사해 주세요.");
+    });
 }
 
 function resetToDefaults() {

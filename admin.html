@@ -177,9 +177,14 @@
             <h1>SIMPLE Admin Dashboard</h1>
             <p style="color: var(--text-secondary);">Manage your portfolio items, order, and text.</p>
         </div>
-        <div style="display: flex; gap: 10px;">
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <div id="github-settings" style="display: flex; align-items: center; gap: 5px; background: #222; padding: 5px 10px; border-radius: 5px; margin-right: 10px;">
+                <label style="font-size: 12px; color: #888;">GitHub PAT:</label>
+                <input type="password" id="gh-token" placeholder="ghp_..." style="background: transparent; border: 1px solid #444; color: white; padding: 3px 8px; border-radius: 3px; font-size: 12px; width: 120px;" onchange="saveToken(this.value)">
+            </div>
+            <button class="btn btn-secondary" onclick="exportForGitHub()" style="background:#333; color:white;"><i class="fa-solid fa-code"></i> Copy for GitHub</button>
             <button class="btn btn-secondary" onclick="resetToDefaults()">Reset to Code Defaults</button>
-            <button class="btn" onclick="saveData()">Save & Publish</button>
+            <button class="btn" onclick="saveData()"><i class="fa-solid fa-cloud-arrow-up"></i> Save & Sync to GitHub</button>
         </div>
     </header>
 
