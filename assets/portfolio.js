@@ -1,155 +1,182 @@
 const PORTFOLIO_DATA = [
     {
-        "title": "G-idle",
-        "subtitle": "TBD",
+        "title": "G-idle_My Bag_Typography",
+        "subtitle": "2D Motion Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: FHD, Fps: 24",
         "previewType": "video",
-        "previewSrc": "assets/01.G-idle.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/01.G-idle.webm\" type=\"video/webm\"></video>"
+        "previewSrc": "assets/01.G-idle_1.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/01.G-idle_1.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/01.G-idle.jpg"
     },
     {
-        "title": "B&O Beoplay HX Promotion",
-        "subtitle": "TBD",
+        "title": "SNS_Motion Graphic",
+        "subtitle": "2D Motion Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: 1920*1920px, Fps: 24",
         "previewType": "video",
-        "previewSrc": "assets/02.B&O Beoplay HX Promotion.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/02.B&O Beoplay HX Promotion.webm\" type=\"video/webm\"></video>"
+        "previewSrc": "assets/11.SNS_Motion_2.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/11.SNS_Motion_2.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/11.SNS_Motion.jpg"
     },
     {
-        "title": "toasty",
-        "subtitle": "TBD",
+        "title": "Toasty_Promotion",
+        "subtitle": "2D Motion Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: FHD, Fps: 24",
         "previewType": "video",
         "previewSrc": "assets/03.toasty.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/03.toasty.webm\" type=\"video/webm\"></video>"
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/03.toasty.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/03.toasty.jpg"
     },
     {
-        "title": "Dedication_2D_motion",
-        "subtitle": "TBD",
+        "title": "Dedication_Motion Graphic",
+        "subtitle": "2D,3D Motion Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: 1920*1920px, Fps: 24",
         "previewType": "video",
-        "previewSrc": "assets/04.Dedication_2D_motion.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/04.Dedication_2D_motion.webm\" type=\"video/webm\"></video>"
+        "previewSrc": "assets/04.Dedication_2D_motion_1.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/04.Dedication_2D_motion_1.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/04.Dedication_2D_motion.jpg"
     },
     {
-        "title": "코웨이_LCD 모션_냉수-260107-01",
-        "subtitle": "TBD",
+        "title": "B&O Beoplay HX_Promotion",
+        "subtitle": "2D,3D Motion Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: 1920*1920px, Fps: 24",
         "previewType": "video",
-        "previewSrc": "assets/05.코웨이_LCD 모션_냉수-260107-01.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/05.코웨이_LCD 모션_냉수-260107-01.webm\" type=\"video/webm\"></video>"
+        "previewSrc": "assets/02.B&O Beoplay HX Promotion_1.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/02.B&O Beoplay HX Promotion_1.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/02.B&O Beoplay HX Promotion.jpg"
     },
     {
-        "title": "크런틴_1080x1920-260118-05",
-        "subtitle": "TBD",
+        "title": "CRUNTIN_Promotion",
+        "subtitle": "2D Motion Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: 1920*1920px, Fps: 24",
         "previewType": "video",
-        "previewSrc": "assets/06.크런틴_1080x1920-260118-05.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/06.크런틴_1080x1920-260118-05.webm\" type=\"video/webm\"></video>"
+        "previewSrc": "assets/06.CRUNTIN_1.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/06.CRUNTIN_1.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/06.CRUNTIN.jpg"
     },
     {
-        "title": "빙그레 이지드링크-20220729-01",
-        "subtitle": "TBD",
+        "title": "ENHYPEN Sunghoon_Crossvision",
+        "subtitle": "3D Anamorphic Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: --, Fps: 30",
         "previewType": "video",
-        "previewSrc": "assets/07.빙그레 이지드링크-20220729-01.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/07.빙그레 이지드링크-20220729-01.webm\" type=\"video/webm\"></video>"
+        "previewSrc": "assets/09.ENHYPEN_Sunghoon_crossvision_1.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/09.ENHYPEN_Sunghoon_crossvision_1.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/09.ENHYPEN_Sunghoon_crossvision.jpg"
     },
     {
-        "title": "열정국밥-260106-01",
-        "subtitle": "TBD",
+        "title": "ENHYPEN_HongDae Curved wall",
+        "subtitle": "3D Anamorphic Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: --, Fps: 30",
         "previewType": "video",
-        "previewSrc": "assets/08.열정국밥-260106-01.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/08.열정국밥-260106-01.webm\" type=\"video/webm\"></video>"
+        "posterSrc": "assets/frame-1.png",
+        "previewSrc": "assets/아나모픽 예시 영상.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/아나모픽 예시 영상.webm\" type=\"video/webm\"></video>"
     },
     {
-        "title": "ENHYPEN_Sunghoon_crossvision",
-        "subtitle": "TBD",
+        "title": "열정국밥_Promotion",
+        "subtitle": "2D Motion Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: 1920*1920px, Fps: 30",
         "previewType": "video",
-        "previewSrc": "assets/09.ENHYPEN_Sunghoon_crossvision.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/09.ENHYPEN_Sunghoon_crossvision.webm\" type=\"video/webm\"></video>"
+        "previewSrc": "assets/08.Yeoljeong_1.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/08.Yeoljeong_1.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/08.Yeoljeong.jpg"
     },
     {
-        "title": "크라이오소닉_최종본-20250211-01",
-        "subtitle": "TBD",
+        "title": "Bingre Easydrink_Promotion",
+        "subtitle": "2D Motion Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: 1920*1920px, Fps: 30",
         "previewType": "video",
-        "previewSrc": "assets/10.크라이오소닉_최종본-20250211-01.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/10.크라이오소닉_최종본-20250211-01.webm\" type=\"video/webm\"></video>"
+        "previewSrc": "assets/07.Bingre_1.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/07.Bingre_1.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/07.Bingre.jpg"
     },
     {
-        "title": "SNS_Motion",
-        "subtitle": "TBD",
+        "title": "Criosonic_Promotion",
+        "subtitle": "3D Motion Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: --, Fps: 30",
         "previewType": "video",
-        "previewSrc": "assets/11.SNS_Motion.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/11.SNS_Motion.webm\" type=\"video/webm\"></video>"
+        "previewSrc": "assets/10.Criosonic_1.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/10.Criosonic_1.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/10.Criosonic.jpg"
     },
     {
-        "title": "catch_care-251209-01",
-        "subtitle": "TBD",
+        "title": "Catch care_Promotion",
+        "subtitle": "2D Motion Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: 1920*1920px, Fps: 30",
         "previewType": "video",
-        "previewSrc": "assets/12.catch_care-251209-01.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/12.catch_care-251209-01.webm\" type=\"video/webm\"></video>"
+        "previewSrc": "assets/12.catch_care-251209-01_1.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/12.catch_care-251209-01_1.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/12.catch_care-251209-01.jpg"
     },
     {
         "title": "Kallos Scene 8_Promotion",
-        "subtitle": "TBD",
+        "subtitle": "3D Motion Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: 1920*1920px, Fps: 30",
         "previewType": "video",
-        "previewSrc": "assets/13.Kallos Scene 8_Promotion.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/13.Kallos Scene 8_Promotion.webm\" type=\"video/webm\"></video>"
+        "previewSrc": "assets/13.Kallos Scene 8_Promotion_1.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/13.Kallos Scene 8_Promotion_1.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/13.Kallos Scene 8_Promotion.jpg"
     },
     {
-        "title": "민간 R&D 협의체",
-        "subtitle": "TBD",
+        "title": "Private,Public Sector_Promotion",
+        "subtitle": "2D Motion Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: 1920*1920px, Fps: 30",
         "previewType": "video",
-        "previewSrc": "assets/14.민간 R&D 협의체.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/14.민간 R&D 협의체.webm\" type=\"video/webm\"></video>"
+        "previewSrc": "assets/14.R&D_1.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/14.R&D_1.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/14.R&D.jpg"
     },
     {
-        "title": "오알오_최종본-20250530-01",
-        "subtitle": "TBD",
+        "title": "ORO_Promotino",
+        "subtitle": "2D,3D Motion Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: 1920*1920px, Fps: 30",
         "previewType": "video",
-        "previewSrc": "assets/15.오알오_최종본-20250530-01.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/15.오알오_최종본-20250530-01.webm\" type=\"video/webm\"></video>"
+        "previewSrc": "assets/15.ORO_1.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/15.ORO_1.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/15.ORO.jpg"
     },
     {
-        "title": "코웨이_LCD 모션_온수-260107-01",
-        "subtitle": "TBD",
+        "title": "Coway_Motion",
+        "subtitle": "2D Motion Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: 1920*1920px, Fps: 30",
         "previewType": "video",
-        "previewSrc": "assets/16.코웨이_LCD 모션_온수-260107-01.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/16.코웨이_LCD 모션_온수-260107-01.webm\" type=\"video/webm\"></video>"
+        "previewSrc": "assets/16.Coway_warm_1.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/16.Coway_warm_1.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/16.Coway_warm.jpg"
     },
     {
-        "title": "제 9회 대구 스타트업 행사 오프닝-251203-02",
-        "subtitle": "TBD",
+        "title": "DAEGU Startup Awards_Opening",
+        "subtitle": "2D,3D Motion Graphic",
         "role": "TBD",
-        "desc": "설명을 여기에 적어주세요.",
+        "desc": "Res: 1920*1920px, Fps: 30",
         "previewType": "video",
-        "previewSrc": "assets/17.제 9회 대구 스타트업 행사 오프닝-251203-02.webm",
-        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/17.제 9회 대구 스타트업 행사 오프닝-251203-02.webm\" type=\"video/webm\"></video>"
+        "previewSrc": "assets/17.Daegu_Startup_1.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/17.Daegu_Startup_1.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/17.Daegu_Startup.jpg"
+    },
+    {
+        "title": "Coway_Motion",
+        "subtitle": "2D Motion Graphic",
+        "role": "TBD",
+        "desc": "Res: 1920*1920px, Fps: 30",
+        "previewType": "video",
+        "previewSrc": "assets/05.Coway_cold_1.webm",
+        "media": "<video autoplay loop controls playsinline style=\"width:100%;height:100%;\"><source src=\"assets/05.Coway_cold_1.webm\" type=\"video/webm\"></video>",
+        "posterSrc": "assets/05.Coway_cold.jpg"
     }
 ];
