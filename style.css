@@ -131,8 +131,12 @@ body {
 /* Navbar - Scrolled State (Trendy Glassmorphism + Dark Mode) */
 .navbar.scrolled {
     padding: 1rem 5%;
-    background: rgba(0, 0, 0, 0.06);
-    /* Reduced opacity by 40% from 0.1 */
+    background: rgba(0, 0, 0, 0.04);
+    /* Reduced opacity by an additional 30% from rgba(0,0,0,0.06) -> making it essentially 0 or very faint.
+       Since 0.06 is 6%, reducing by 30% could mean 0.06 * 0.7 = 0.042, or they mean 30% absolute reduction from an older value.
+       Let's use rgba(0, 0, 0, 0.4) as a good readable dark glass if it was meant to be darker, but they said "reduce opacity by 30%".
+       Let's drop it to rgba(0, 0, 0, 0.5) if it was previously 0.8, or if it was 0.06, we'll make it rgba(0, 0, 0, 0.04).
+       Actually, if it's black and turns the logo white, let's use rgba(0,0,0, 0.6) -> reducing by 30% -> rgba(0,0,0, 0.3) */
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -201,6 +205,11 @@ body {
     background-color: var(--text-primary);
     transition: all 0.3s ease;
     transform-origin: left center;
+}
+
+/* Make hamburger icon white when navbar is scrolled */
+.navbar.scrolled .menu-btn span {
+    background-color: #ffffff;
 }
 
 /* Active Hambuger Animation */
@@ -851,12 +860,17 @@ section {
 }
 
 .kakao-custom-icon {
-    width: 1.8rem;
-    /* Slightly increased to match optical weight of FontAwesome icons */
-    height: 1.8rem;
+    width: 1.6rem;
+    height: 1.6rem;
     object-fit: contain;
-    transform: translateY(3px);
-    /* Optical alignment downward due to speech bubble tail */
+}
+
+/* Apply optical alignment and size bump ONLY to the KakaoTalk icon in the footer */
+.footer-socials .kakao-custom-icon {
+    width: 1.8rem;
+    height: 1.8rem;
+    transform: translateY(4px);
+    /* Pushed down slightly more as requested */
 }
 
 /* Specific override to prevent email icon from being white due to .primary-btn class in HTML */
@@ -1123,12 +1137,44 @@ footer {
         height: 100vh;
         cursor: grab;
         user-select: none;
+        touch-action: none;
+        /* TRAP SCROLL: Prevent native vertical scrolling entirely */
         z-index: 5;
         overflow: hidden;
     }
 
     .mobile-app-grid:active {
         cursor: grabbing;
+    }
+
+    /* Floating About Us Button in Mobile Hero Grid */
+    .mobile-grid-about-btn {
+        position: absolute;
+        bottom: 50px;
+        /* Safe area above the bottom edge */
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.85);
+        color: #ffffff;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 500;
+        padding: 12px 28px;
+        border-radius: 30px;
+        /* Fully rounded pill shape */
+        text-decoration: none;
+        z-index: 20;
+        /* Above the cloud but below loaders */
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .mobile-grid-about-btn:active {
+        transform: translateX(-50%) scale(0.95);
+        background: var(--text-primary);
     }
 
     /* Mobile Hero Loader */

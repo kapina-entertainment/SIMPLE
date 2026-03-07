@@ -14,6 +14,36 @@ window.addEventListener('scroll', () => {
     }
 });
 
+// Mobile Hamburger Menu Toggle
+const menuBtn = document.querySelector('.menu-btn');
+const navLinks = document.querySelector('.nav-links');
+
+if (menuBtn && navLinks) {
+    menuBtn.addEventListener('click', () => {
+        menuBtn.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            menuBtn.classList.remove('active');
+            navLinks.classList.remove('active');
+
+            // Custom scroll for "WORK" on mobile: scroll to hero grid instead of desktop masonry
+            if (window.innerWidth <= 768 && link.getAttribute('href') === '#work') {
+                e.preventDefault();
+                e.stopImmediatePropagation(); // Prevent the global Lenis listener from catching this
+                if (typeof lenis !== 'undefined') {
+                    lenis.scrollTo(0, { duration: 1.2 });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        });
+    });
+}
+
 // Custom Cursor Implementation
 const cursor = document.getElementById('cursor');
 const cursorBlur = document.getElementById('cursor-blur');
@@ -313,13 +343,26 @@ function initMobileAppGrid(data) {
     let isDragging = false;
     let startX, startY;
 
+    // --- FEATURE: watchOS복제 (watchOS Duplication) ---
+    // If true, randomly duplicates and appends all videos to make the grid larger and richer on mobile.
+    // Set to false to disable this feature.
+    const enableWatchOSDuplicate = true;
+
+    let displayData = [...data];
+    if (enableWatchOSDuplicate) {
+        // Clone the array and shuffle it
+        let shuffledClones = [...data].sort(() => Math.random() - 0.5);
+        // Append clones to the original data so they render far away from the originals globally
+        displayData = displayData.concat(shuffledClones);
+    }
+
     // Honeycomb layout configuration
-    const rowLength = Math.ceil(Math.sqrt(data.length));
+    const rowLength = Math.ceil(Math.sqrt(displayData.length));
     const spacing = 100; // Balanced base spacing
 
     const circles = [];
 
-    data.forEach((item, i) => {
+    displayData.forEach((item, i) => {
         const circle = document.createElement('div');
         circle.className = 'app-circle';
 
@@ -340,7 +383,7 @@ function initMobileAppGrid(data) {
 
         circle.addEventListener('click', () => {
             if (!isDragging) {
-                openModal(i, data);
+                openModal(i, displayData);
             }
         });
 
@@ -402,7 +445,10 @@ function initMobileAppGrid(data) {
                     const dx = n2.x - n1.x;
                     const dy = n2.y - n1.y;
                     const distSq = dx * dx + dy * dy;
-                    const minDist = n1.r + n2.r;
+
+                    // Add dynamic padding: larger items (scale > 1) push harder
+                    const padding = (n1.scale > 1 || n2.scale > 1) ? 1.08 : 1.02;
+                    const minDist = (n1.r + n2.r) * padding;
 
                     if (distSq < minDist * minDist && distSq > 0) {
                         const dist = Math.sqrt(distSq);
@@ -454,6 +500,7 @@ function initMobileAppGrid(data) {
     }
 
     // Panning logic
+    // Panning logic
     const startDrag = (e) => {
         isDragging = false;
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -466,6 +513,12 @@ function initMobileAppGrid(data) {
     const onDrag = (e) => {
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
         const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+        // Prevent ALL default scrolling to trap user in the honeycomb interface
+        if (e.cancelable && e.touches) {
+            e.preventDefault();
+        }
+
         const moveX = clientX - startX;
         const moveY = clientY - startY;
 
