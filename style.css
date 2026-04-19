@@ -1,15 +1,15 @@
 :root {
     /* --- Global Styles --- */
-    --bg-color: #ffffff;
-    --text-primary: #111111;
-    --text-secondary: #555555;
-    --accent-color: #ff900c;
-    --accent-glow: rgba(255, 144, 12, 0.4);
-    --secondary-bg: #f8f8f8;
+    --bg-color: #fbfbfd;
+    --text-primary: #1d1d1f;
+    --text-secondary: #86868b;
+    --accent-color: #0071e3;
+    --accent-glow: rgba(0, 113, 227, 0.4);
+    --secondary-bg: #f5f5f7;
     --container-width: 1200px;
-    --border-radius: 20px;
-    --glass-bg: rgba(255, 255, 255, 0.8);
-    --glass-border: rgba(0, 0, 0, 0.05);
+    --border-radius: 980px; /* Apple uses pill shapes heavily */
+    --glass-bg: rgba(255, 255, 255, 0.72);
+    --glass-border: rgba(0, 0, 0, 0.08);
 }
 
 * {
@@ -44,56 +44,12 @@ html.lenis body {
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     background-color: var(--bg-color);
     color: var(--text-primary);
     overflow-x: clip;
-    cursor: none;
-    /* For custom cursor */
-}
-
-/* Custom Cursor */
-#cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 12px;
-    height: 12px;
-    background-color: var(--accent-color);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 10001;
-    transition: transform 0.1s ease-out;
-}
-
-#cursor-blur {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 210px;
-    height: 210px;
-    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 10000;
-    transition: transform 0.3s ease-out, opacity 0.3s ease;
-    animation: pulse-blur 4s infinite alternate ease-in-out;
-}
-
-@keyframes pulse-blur {
-    0% {
-        width: 210px;
-        height: 210px;
-        opacity: 0.56;
-    }
-
-    100% {
-        width: 245px;
-        height: 245px;
-        opacity: 0.35;
-    }
 }
 
 /* Navbar - Trendy Default State */
@@ -128,20 +84,14 @@ body {
     transition: opacity 0.3s ease;
 }
 
-/* Navbar - Scrolled State (Trendy Glassmorphism + Dark Mode) */
+/* Navbar - Scrolled State (Apple Frosted Glass) */
 .navbar.scrolled {
     padding: 1rem 5%;
-    background: rgba(0, 0, 0, 0.04);
-    /* Reduced opacity by an additional 30% from rgba(0,0,0,0.06) -> making it essentially 0 or very faint.
-       Since 0.06 is 6%, reducing by 30% could mean 0.06 * 0.7 = 0.042, or they mean 30% absolute reduction from an older value.
-       Let's use rgba(0, 0, 0, 0.4) as a good readable dark glass if it was meant to be darker, but they said "reduce opacity by 30%".
-       Let's drop it to rgba(0, 0, 0, 0.5) if it was previously 0.8, or if it was 0.06, we'll make it rgba(0, 0, 0, 0.04).
-       Actually, if it's black and turns the logo white, let's use rgba(0,0,0, 0.6) -> reducing by 30% -> rgba(0,0,0, 0.3) */
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    /* Extremely subtle white border instead */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background: var(--glass-bg);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: none;
 }
 
 /* Hide the black line when scrolled (because background turns black) */
@@ -207,9 +157,9 @@ body {
     transform-origin: left center;
 }
 
-/* Make hamburger icon white when navbar is scrolled */
+/* Keep hamburger icon text-primary when navbar is scrolled */
 .navbar.scrolled .menu-btn span {
-    background-color: #ffffff;
+    background-color: var(--text-primary);
 }
 
 /* Active Hambuger Animation */
@@ -235,9 +185,9 @@ body {
     transition: color 0.3s ease;
 }
 
-/* Change link color to white when scrolled */
+/* Change link color to standard text when scrolled */
 .navbar.scrolled .nav-links a {
-    color: #ffffff;
+    color: var(--text-primary);
 }
 
 .nav-links a::after {
@@ -261,18 +211,14 @@ body {
     align-items: center;
     justify-content: center;
     gap: 0.8rem;
-    /* Space between icon and text */
     padding: 0.8rem 2rem;
-    border-radius: 30px;
+    border-radius: var(--border-radius);
     text-decoration: none;
-    font-weight: 600;
-    text-transform: uppercase;
+    font-weight: 500;
     color: var(--text-secondary);
-    letter-spacing: 1px;
-    opacity: 0.8;
-    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    font-size: 0.95rem;
     transition: all 0.3s ease;
-    cursor: none;
 }
 
 .btn i {
@@ -282,24 +228,24 @@ body {
 
 .primary-btn {
     background: var(--accent-color);
-    color: var(--bg-color);
-    box-shadow: 0 0 20px var(--accent-glow);
+    color: #ffffff;
+    box-shadow: none;
 }
 
 .primary-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 30px var(--accent-glow);
+    transform: translateY(-1px);
+    box-shadow: none;
+    filter: brightness(1.1);
 }
 
 .secondary-btn {
-    background: transparent;
+    background: var(--secondary-bg);
     color: var(--text-primary);
-    border: 1px solid var(--text-secondary);
+    border: none;
 }
 
 .secondary-btn:hover {
-    border-color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.05);
+    background: #e8e8ed;
 }
 
 /* Hero Section */
@@ -389,10 +335,9 @@ body {
 }
 
 .hero-subtitle {
-    font-size: 1rem;
-    color: var(--accent-color);
-    letter-spacing: 3px;
-    text-transform: uppercase;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
     margin-bottom: 1rem;
     opacity: 0;
     animation: fadeInUp 0.8s ease forwards 0.2s;
@@ -400,9 +345,9 @@ body {
 
 .hero-title {
     font-size: clamp(2.7rem, 7.2vw, 6.3rem);
-    /* Reduced by 10% */
-    line-height: 1.1;
-    font-weight: 800;
+    line-height: 1.05;
+    font-weight: 700;
+    letter-spacing: -0.02em; /* Apple typography tight kerning */
     margin-bottom: 1.5rem;
     display: flex;
     flex-wrap: wrap;
@@ -413,9 +358,8 @@ body {
 
 /* Ensure hero text is legible on Spline background */
 .hero-title .word:not(.highlight) {
-    color: #000;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-    /* Stronger glow for readability */
+    color: var(--text-primary);
+    text-shadow: none; /* Removed heavy glow for standard minimalism */
 }
 
 .hero-title .word {
@@ -438,10 +382,6 @@ body {
 
 .highlight {
     color: var(--accent-color);
-    /* Matches the newly requested hex #ff900c */
-    -webkit-text-stroke: 0;
-    -webkit-text-fill-color: var(--accent-color);
-    background: transparent;
 }
 
 .white {
@@ -548,9 +488,9 @@ section {
 
 .section-title {
     font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 800;
+    font-weight: 700;
+    letter-spacing: -0.015em;
     margin-bottom: 4rem;
-    text-transform: uppercase;
 }
 
 /* Work Section */
@@ -578,7 +518,6 @@ section {
     border: 1px solid rgba(0, 0, 0, 0.1);
     /* Reduced stroke opacity by 90% */
     overflow: hidden;
-    cursor: none;
     transform: translateY(50px);
     opacity: 0;
     transition: transform 0.8s ease, opacity 0.8s ease, box-shadow 0.3s ease;
@@ -660,7 +599,6 @@ section {
     transform: translateY(20px);
     opacity: 0;
     transition: all 0.4s ease;
-    /* Add transform origin so it scales down beautifully from the bottom left */
     transform-origin: bottom left;
     z-index: 2;
 }
@@ -714,16 +652,16 @@ section {
 
 .stat h3 {
     font-size: 4rem;
-    font-weight: 800;
+    font-weight: 700;
+    letter-spacing: -0.04em;
     color: var(--text-primary);
     margin-bottom: 0.5rem;
 }
 
 .stat p {
-    color: var(--accent-color);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+    font-weight: 500;
 }
 
 /* Marquee Separator Section */
@@ -754,13 +692,9 @@ section {
 
 .marquee-content span {
     font-size: clamp(1rem, 2vw, 1.8rem);
-    /* Reduced by another 30% */
-    font-weight: 800;
+    font-weight: 500;
     color: var(--text-primary);
     -webkit-text-stroke: 0 !important;
-    /* Force removal of stroke */
-    text-transform: uppercase;
-    letter-spacing: 2px;
 }
 
 .marquee-content .dot {
@@ -796,11 +730,12 @@ section {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
-    height: 400px;
+    width: 500px;
+    height: 500px;
     background: var(--accent-glow);
-    filter: blur(120px);
+    filter: blur(140px);
     z-index: -1;
+    opacity: 0.5; /* softer glow for native feel */
 }
 
 .contact-box h2 {
@@ -924,7 +859,6 @@ footer {
     /* Changed to black (text-primary) to match contact icons */
     text-decoration: none;
     transition: all 0.3s ease;
-    cursor: none;
     font-size: 1.6rem;
     /* Match the 1.6rem size of contact icons */
     display: flex;
@@ -981,7 +915,6 @@ footer {
     font-size: 1.5rem;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-    cursor: none;
 }
 
 .floating-btn:hover {
@@ -1399,7 +1332,6 @@ footer {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: 50%;
-    cursor: none;
     z-index: 10;
     display: flex;
     justify-content: center;

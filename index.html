@@ -24,20 +24,26 @@
     <link rel="icon" href="Favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="Touch-icon.png">
     <meta name="color-scheme" content="light">
-    <!-- Google Fonts: Outfit -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <!-- Apple System Fonts (No import needed) -->
 
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="style.css?v=12">
+
+    <!-- In-App Browser Redirect (KakaoTalk, Line, etc) to default external browser -->
+    <script>
+        var userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.match(/kakaotalk/i)) {
+            location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(location.href);
+        } else if (userAgent.match(/line/i)) {
+            location.href = location.href + (location.href.indexOf('?') > -1 ? '&' : '?') + 'openExternalBrowser=1';
+        }
+    </script>
 </head>
 
 <body>
-    <div id="cursor"></div>
-    <div id="cursor-blur"></div>
+
 
     <nav class="navbar">
         <a href="#" class="logo">

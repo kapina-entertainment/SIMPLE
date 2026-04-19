@@ -44,44 +44,7 @@ if (menuBtn && navLinks) {
     });
 }
 
-// Custom Cursor Implementation
-const cursor = document.getElementById('cursor');
-const cursorBlur = document.getElementById('cursor-blur');
-
-document.addEventListener('mousemove', (e) => {
-    // Sharp cursor instantly follows
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-
-    // Smooth trailing effect for the glow
-    cursorBlur.animate({
-        left: `${e.clientX}px`,
-        top: `${e.clientY}px`
-    }, { duration: 500, fill: "forwards" });
-});
-
-// Cursor Hover Effects for Links and Buttons (Magnetic removed)
-const interactables = document.querySelectorAll('a, .btn, .portfolio-item, .footer-socials a');
-
-interactables.forEach(link => {
-    link.addEventListener('mouseenter', () => {
-        cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-        cursor.style.backgroundColor = 'transparent';
-        cursor.style.border = '2px solid var(--accent-color)';
-
-        cursorBlur.style.transform = 'translate(-50%, -50%) scale(1.2)';
-        cursorBlur.style.opacity = '0.8';
-    });
-
-    link.addEventListener('mouseleave', () => {
-        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-        cursor.style.backgroundColor = 'var(--accent-color)';
-        cursor.style.border = 'none';
-
-        cursorBlur.style.transform = 'translate(-50%, -50%) scale(1)';
-        cursorBlur.style.opacity = '0.35';
-    });
-});
+// Custom Cursor Implementation Removed
 
 // Scroll Animations to reveal elements when in horizontal or vertical view
 const observerOptions = {
@@ -499,20 +462,35 @@ function initMobileAppGrid(data) {
         }, 200); // Give JS/DOM a tiny moment to paint initial layout
     }
 
-    // Panning logic
-    // Panning logic
+    // Panning & Momentum logic
+    let velocityX = 0;
+    let velocityY = 0;
+    let lastTime = 0;
+    let lastX = 0;
+    let lastY = 0;
+    let animationId = null;
+
     const startDrag = (e) => {
         isDragging = false;
+        if (animationId) cancelAnimationFrame(animationId);
+
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
         const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
         startX = clientX - posX;
         startY = clientY - posY;
+
+        lastX = clientX;
+        lastY = clientY;
+        lastTime = performance.now();
+
         container.style.cursor = 'grabbing';
     };
 
     const onDrag = (e) => {
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
         const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const currentTime = performance.now();
 
         // Prevent ALL default scrolling to trap user in the honeycomb interface
         if (e.cancelable && e.touches) {
@@ -526,15 +504,44 @@ function initMobileAppGrid(data) {
             isDragging = true;
         }
 
+        // Calculate velocity
+        const dt = currentTime - lastTime;
+        if (dt > 0) {
+            velocityX = (clientX - lastX) / dt;
+            velocityY = (clientY - lastY) / dt;
+        }
+
         posX = moveX;
         posY = moveY;
+        lastX = clientX;
+        lastY = clientY;
+        lastTime = currentTime;
 
-        // Instead of transforming the cloud, we update each circle individually for fisheye
         updateFisheye();
+    };
+
+    const applyInertia = () => {
+        const friction = 0.95;
+        posX += velocityX * 16; // Approx 16ms per frame
+        posY += velocityY * 16;
+
+        velocityX *= friction;
+        velocityY *= friction;
+
+        updateFisheye();
+
+        if (Math.abs(velocityX) > 0.01 || Math.abs(velocityY) > 0.01) {
+            animationId = requestAnimationFrame(applyInertia);
+        } else {
+            animationId = null;
+        }
     };
 
     const stopDrag = () => {
         container.style.cursor = 'grab';
+        if (isDragging) {
+            applyInertia();
+        }
     };
 
     container.addEventListener('mousedown', startDrag);
@@ -543,8 +550,8 @@ function initMobileAppGrid(data) {
     });
     window.addEventListener('mouseup', stopDrag);
 
-    container.addEventListener('touchstart', startDrag);
-    container.addEventListener('touchmove', onDrag);
+    container.addEventListener('touchstart', startDrag, { passive: false });
+    container.addEventListener('touchmove', onDrag, { passive: false });
     container.addEventListener('touchend', stopDrag);
 
     // Auto-center the cloud initially
